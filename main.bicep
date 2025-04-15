@@ -35,9 +35,9 @@ module peerModule 'modules/peerVnets.bicep' = {
 }
 
 module vm1Module 'modules/vm.bicep' = {
-  name: 'ExtraCredAssignment-vm-1-Deploy'
+  name:'vm1Deploy'
   params: {
-    vmName: 'ExtraCredAssignment-vm-1'
+    vmName: 'ExtCredAssi-vm-1'
     location: location
     subnetId: vnet1Module.outputs.infraSubnetId
     adminUsername: adminUsername
@@ -48,7 +48,7 @@ module vm1Module 'modules/vm.bicep' = {
 module vm2Module 'modules/vm.bicep' = {
   name: 'vm2Deploy'
   params: {
-    vmName: 'ExtraCredAssignment-vm-2'
+    vmName: 'ExtCredAssi-vm-2'
     location: location
     subnetId: vnet2Module.outputs.infraSubnetId
     adminUsername: adminUsername
