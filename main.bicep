@@ -4,7 +4,7 @@ param adminUsername string = 'azureuser'
 param adminPassword string
 
 module vnet1Module 'modules/vnet.bicep' = {
-  name: 'ExtraCredAssignment-vnet-1-Deploy'
+  name: 'Extra-CredAssignment-vnet-1-Deploy'
   params: {
     vnetName: 'ExtraCredAssignment-vnet-1'
     location: location
@@ -15,7 +15,7 @@ module vnet1Module 'modules/vnet.bicep' = {
 }
 
 module vnet2Module 'modules/vnet.bicep' = {
-  name: 'ExtraCredAssignment-vnet-2-Deploy'
+  name: 'Extra-CredAssignment-vnet-2-Deploy'
   params: {
     vnetName: 'ExtraCredAssignment-vnet-2'
     location: location
