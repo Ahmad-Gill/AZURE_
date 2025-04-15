@@ -18,6 +18,11 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' = {
         name: 'infra'
         properties: {
           addressPrefix: infraSubnetPrefix
+          serviceEndpoints: [
+            {
+              service: 'Microsoft.Storage'   //securely access Azure Storage without going over the public internet.
+            }
+          ]
         }
       }
       {

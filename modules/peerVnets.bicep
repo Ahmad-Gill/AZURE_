@@ -1,7 +1,7 @@
 param vnet1Name string
 param vnet2Name string
 
-resource vnet1 'Microsoft.Network/virtualNetworks@2021-02-01' existing = {
+resource vnet1 'Microsoft.Network/virtualNetworks@2021-02-01' existing = { // you're just referencing it.
   name: vnet1Name
 }
 
@@ -16,10 +16,6 @@ resource vnet1ToVnet2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@
     remoteVirtualNetwork: {
       id: vnet2.id
     }
-    allowVirtualNetworkAccess: true
-    allowForwardedTraffic: true
-    allowGatewayTransit: false
-    useRemoteGateways: false
   }
 }
 
@@ -30,9 +26,5 @@ resource vnet2ToVnet1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@
     remoteVirtualNetwork: {
       id: vnet1.id
     }
-    allowVirtualNetworkAccess: true
-    allowForwardedTraffic: true
-    allowGatewayTransit: false
-    useRemoteGateways: false
   }
 }

@@ -1,26 +1,23 @@
 param storageAccountName string
-param location string = resourceGroup().location
-param storageAccountKind string = 'StorageV2'
-param storageAccountSku string = 'Standard_ZRS'
+param location string 
 param storageSubnetId string
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
   name: storageAccountName
   location: location
   sku: {
-    name: storageAccountSku
+    name: 'Standard_ZRS'
   }
-  kind: storageAccountKind
+  kind: 'StorageV2'
   properties: {
     networkAcls: {
       bypass: 'AzureServices'
       virtualNetworkRules: [
         {
           id: storageSubnetId
-          action: 'Allow'
         }
       ]
-      defaultAction: 'Deny'
+      defaultAction: 'Deny'//Only trusted subnets or IP addresses (via rules) can access it.      
     }
   }
 }

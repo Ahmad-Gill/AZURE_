@@ -1,59 +1,42 @@
 param location string = resourceGroup().location
-
-param vnet1Name string = 'vnet-student-1'
-param vnet1AddressPrefix string = '10.0.0.0/16'
-param vnet1InfraPrefix string = '10.0.1.0/24'
-param vnet1StoragePrefix string = '10.0.2.0/24'
-
-param vnet2Name string = 'vnet-student-2'
-param vnet2AddressPrefix string = '10.1.0.0/16'
-param vnet2InfraPrefix string = '10.1.1.0/24'
-param vnet2StoragePrefix string = '10.1.2.0/24'
-
-param vm1Name string = 'vm-student-1'
-param vm2Name string = 'vm-student-2'
 param adminUsername string = 'azureuser'
 @secure()
 param adminPassword string
-
-param storage1Name string = 'storastudent1ahmad786'
-param storage2Name string = 'storastudent2ahmad786'
-
 module vnet1Module 'modules/vnet.bicep' = {
-  name: 'vnet1Deploy'
+  name: 'Extra_Cred_Assignment_vnet1Deploy'
   params: {
-    vnetName: vnet1Name
+    vnetName: 'Extra_Cred_Assignment_vnet_1'
     location: location
-    addressPrefix: vnet1AddressPrefix
-    infraSubnetPrefix: vnet1InfraPrefix
-    storageSubnetPrefix: vnet1StoragePrefix
+    addressPrefix: '10.0.0.0/16'
+    infraSubnetPrefix: '10.0.1.0/24'
+    storageSubnetPrefix: '10.0.2.0/24'
   }
 }
 
 module vnet2Module 'modules/vnet.bicep' = {
-  name: 'vnet2Deploy'
+  name: 'Extra_Cred_Assignment_vnet2Deploy'
   params: {
-    vnetName: vnet2Name
+    vnetName: 'Extra_Cred_Assignment_vnet_2'
     location: location
-    addressPrefix: vnet2AddressPrefix
-    infraSubnetPrefix: vnet2InfraPrefix
-    storageSubnetPrefix: vnet2StoragePrefix
+    addressPrefix:  '10.1.0.0/16'
+    infraSubnetPrefix: '10.1.1.0/24'
+    storageSubnetPrefix:  '10.1.2.0/24'
   }
 }
 
 module peerModule 'modules/peerVnets.bicep' = {
-  name: 'peerVnets'
+  name: 'Extra_Cred_Assignment_peerVnets'
   dependsOn: [vnet1Module, vnet2Module]
   params: {
-    vnet1Name: vnet1Name
-    vnet2Name: vnet2Name
+    vnet1Name: 'Extra_Cred_Assignment_vnet_1'
+    vnet2Name: 'Extra_Cred_Assignment_vnet_2'
   }
 }
 
 module vm1Module 'modules/vm.bicep' = {
-  name: 'vm1Deploy'
+  name: 'Extra_Cred_Assignment_vm1Deploy'
   params: {
-    vmName: vm1Name
+    vmName:  'Extra_Cred_Assignment_vm_1'
     location: location
     subnetId: vnet1Module.outputs.infraSubnetId
     adminUsername: adminUsername
@@ -64,7 +47,7 @@ module vm1Module 'modules/vm.bicep' = {
 module vm2Module 'modules/vm.bicep' = {
   name: 'vm2Deploy'
   params: {
-    vmName: vm2Name
+    vmName: 'Extra_Cred_Assignment_vm_2'
     location: location
     subnetId: vnet2Module.outputs.infraSubnetId
     adminUsername: adminUsername
@@ -75,9 +58,8 @@ module vm2Module 'modules/vm.bicep' = {
 module storage1Module 'modules/storage.bicep' = {
   name: 'storage1Deploy'
   params: {
-    storageAccountName: storage1Name
+    storageAccountName: 'Extra_Cred_Assignment_storastudent1Mahmad011'
     location: location
-    storageAccountSku: 'Standard_ZRS'
     storageSubnetId: vnet1Module.outputs.storageSubnetId
   }
 }
@@ -85,9 +67,8 @@ module storage1Module 'modules/storage.bicep' = {
 module storage2Module 'modules/storage.bicep' = {
   name: 'storage2Deploy'
   params: {
-    storageAccountName: storage2Name
+    storageAccountName: 'Extra_Cred_Assignment_storastudent2Mahmad011'
     location: location
-    storageAccountSku: 'Standard_ZRS'
     storageSubnetId: vnet2Module.outputs.storageSubnetId
   }
 }
