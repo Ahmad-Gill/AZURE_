@@ -2,10 +2,11 @@ param location string = resourceGroup().location
 param adminUsername string = 'azureuser'
 @secure()
 param adminPassword string
+
 module vnet1Module 'modules/vnet.bicep' = {
-  name: 'ExtraCredAssignmentnet1Deploy'
+  name: 'ExtraCredAssignment-vnet-1-Deploy'
   params: {
-    vnetName: 'Extra-Cred-Assignment-vnet-1'
+    vnetName: 'ExtraCredAssignment-vnet-1'
     location: location
     addressPrefix: '10.0.0.0/16'
     infraSubnetPrefix: '10.0.1.0/24'
@@ -14,9 +15,9 @@ module vnet1Module 'modules/vnet.bicep' = {
 }
 
 module vnet2Module 'modules/vnet.bicep' = {
-  name: 'Extra-Cred-Assignment-vnet-2-Deploy'
+  name: 'ExtraCredAssignment-vnet-2-Deploy'
   params: {
-    vnetName: 'Extra-Cred-Assignment-vnet-2'
+    vnetName: 'ExtraCredAssignment-vnet-2'
     location: location
     addressPrefix:  '10.1.0.0/16'
     infraSubnetPrefix: '10.1.1.0/24'
@@ -25,18 +26,18 @@ module vnet2Module 'modules/vnet.bicep' = {
 }
 
 module peerModule 'modules/peerVnets.bicep' = {
-  name: 'Extra-Cred-Assignment-peerVnets'
+  name: 'ExtraCredAssignment-peerVnets'
   dependsOn: [vnet1Module, vnet2Module]
   params: {
-    vnet1Name: 'Extra-Cred-Assignment-vnet-1'
-    vnet2Name: 'Extra-Cred-Assignment-vnet-2'
+    vnet1Name: 'ExtraCredAssignment-vnet-1'
+    vnet2Name: 'ExtraCredAssignment-vnet-2'
   }
 }
 
 module vm1Module 'modules/vm.bicep' = {
-  name: 'Extra-Cred-Assignment-vm-1-Deploy'
+  name: 'ExtraCredAssignment-vm-1-Deploy'
   params: {
-    vmName:  'Extra-Cred-Assignment-vm-1'
+    vmName: 'ExtraCredAssignment-vm-1'
     location: location
     subnetId: vnet1Module.outputs.infraSubnetId
     adminUsername: adminUsername
@@ -47,7 +48,7 @@ module vm1Module 'modules/vm.bicep' = {
 module vm2Module 'modules/vm.bicep' = {
   name: 'vm2Deploy'
   params: {
-    vmName: 'Extra-Cred-Assignment-vm-2'
+    vmName: 'ExtraCredAssignment-vm-2'
     location: location
     subnetId: vnet2Module.outputs.infraSubnetId
     adminUsername: adminUsername
@@ -58,7 +59,7 @@ module vm2Module 'modules/vm.bicep' = {
 module storage1Module 'modules/storage.bicep' = {
   name: 'storage1Deploy'
   params: {
-    storageAccountName: 'Extra-Cred-Assignment-storastudent1Mahmad011'
+    storageAccountName: 'extracredassignmentstor1'
     location: location
     storageSubnetId: vnet1Module.outputs.storageSubnetId
   }
@@ -67,7 +68,7 @@ module storage1Module 'modules/storage.bicep' = {
 module storage2Module 'modules/storage.bicep' = {
   name: 'storage2Deploy'
   params: {
-    storageAccountName: 'Extra-Cred-Assignment-storastudent2Mahmad011'
+    storageAccountName: 'extracredassignmentstor2'
     location: location
     storageSubnetId: vnet2Module.outputs.storageSubnetId
   }
