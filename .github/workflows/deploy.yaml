@@ -27,7 +27,7 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
-        resourceGroupName: 'NEW'
+        resourceGroupName: 'Extra_Credit_Assignment'
         region: eastus
         template: ./main.bicep
         parameters: |
