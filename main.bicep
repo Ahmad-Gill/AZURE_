@@ -9,7 +9,7 @@ module vnet1Module 'modules/vnet.bicep' = {
     vnetName: 'ExtraCredAssignment-vnet-1'
     location: location
     addressPrefix: '10.0.0.0/16'
-    infraSubnetPrefix: '10.0.1.0/24'
+    infraSubnetPrefix: '10.0.1.0/24' 
     storageSubnetPrefix: '10.0.2.0/24'
   }
 }
